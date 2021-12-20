@@ -24,8 +24,8 @@ Some extra benefits of using Firstmate could include:
 | 3. [Custom deployment](#custom-deployment) |
 | 4. [Roadmap](#roadmap) |
 | 5. [Learning resources](#learning-resources) |
-| 6. [References](#references) |
-| 7. [License](#license) |
+| 6. [License](#license) |
+| 7. [References](#references) |
 
 ## Boilerplate Projects
 The <a href="/#boilerplate-projects" style="color: blue; text-decoration: underline; text-decoration-style: dotted;font-size: small">firstmate-boilerplates</a> repo has a brief overview of each type of boilerplate and stores them as submodules for convenient viewing.
@@ -391,10 +391,6 @@ Then of course different image stores or cloud services which will hopefully be 
 Docker & Kubernetes: The Complete Guide by Stephen Grider - [https://www.udemy.com/share/101WjM3@5Giyf_mjbu3rRKfp8Zw-L5GLUKBHLGx7u4OUK4RpOxcd72CrdrTgJI6y4kx60BZh/](https://www.udemy.com/share/101WjM3@5Giyf_mjbu3rRKfp8Zw-L5GLUKBHLGx7u4OUK4RpOxcd72CrdrTgJI6y4kx60BZh/)
 ***
 
-## References
-[^1]: Oracle - Step 4, Setting up a Service Account [https://docs.oracle.com/en-us/iaas/Content/ContEng/Tasks/contengaddingserviceaccttoken.htm](https://docs.oracle.com/en-us/iaas/Content/ContEng/Tasks/contengaddingserviceaccttoken.htm)
-***
-
 ## License
 Right now I am thinking [GPLv3](https://www.gnu.org/licenses/gpl-3.0.html) if I am able.
 
@@ -402,3 +398,7 @@ My understanding of this would be (among other things):
 i) You can use this project to make a profit or start a business. But specifically when it comes to the code/software is that any upgrades you make you must share as open source code if you wish to sell the upgraded software.
 
 ii) I will try to make push good software but I make no claims about it's security, and am not responsible if something bad happens from you implementing this code.
+
+## References
+[^1]: Oracle - Step 4, Setting up a Service Account [https://docs.oracle.com/en-us/iaas/Content/ContEng/Tasks/contengaddingserviceaccttoken.htm](https://docs.oracle.com/en-us/iaas/Content/ContEng/Tasks/contengaddingserviceaccttoken.htm)
+***
