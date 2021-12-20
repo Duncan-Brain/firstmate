@@ -1,7 +1,7 @@
 name: Refresh ingress
 
 on:
-  workflow-call:
+  workflow_call:
     secrets:
       DECRYPT_PASSPHRASE:
         required: true
