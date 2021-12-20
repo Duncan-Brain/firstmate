@@ -1,0 +1,61 @@
+name: Cluster Init
+
+on:
+  workflow_dispatch:
+    inputs:
+      is-first-initialization:
+        description: NOT recommended to run twice otherwise 'true'
+        required: true
+        default: false
+
+jobs:
+  deploy-do-kubernetes:
+    runs-on: ubuntu-latest
+    if: ${{ inputs.is-first-initialization == 'true'}}
+    steps:
+      - name: Check Out Repo
+        uses: actions/checkout@v2
+
+      - name: Import Kubectl
+        run: |
+          curl -LO https://dl.k8s.io/release/v1.20.0/bin/linux/amd64/kubectl
+          sudo install -o root -g root -m 0755 kubectl /usr/local/bin/kubectl
+
+      - name: Import Helm
+        run: |
+          curl -fsSL -o get_helm.sh https://raw.githubusercontent.com/helm/helm/master/scripts/get-helm-3
+          chmod 700 get_helm.sh
+          ./get_helm.sh
+
+      - name: Setup Kubeconfig
+        env:
+          PASSPHRASE: ${{ secrets.DECRYPT_PASSPHRASE }}
+        run: |
+          mkdir $HOME/.kube
+          gpg --quiet --batch --yes --decrypt --passphrase "$PASSPHRASE" --output $HOME/.kube/config github-actions-kubeconfig.gpg
+          chmod 600 $HOME/.kube/config
+          kubectl config set-context --current --user=github-actions
+
+      - name: Create/Apply Deploy Docker Secret To Cluster
+        env:
+          DOCKER_USERNAME: ${{ secrets.DOCKER_HUB_USERNAME }}
+          DOCKER_TOKEN: ${{ secrets.DOCKER_HUB_TOKEN }}
+          DOCKER_EMAIL: ${{ secrets.DOCKER_HUB_EMAIL }}
+        run: |
+          kubectl create secret docker-registry regcred --namespace="firstmate" --docker-server=https://index.docker.io/v2/ --docker-username="$DOCKER_USERNAME" --docker-password="$DOCKER_TOKEN" --docker-email="$DOCKER_EMAIL" --dry-run=true -o yaml | kubectl apply -f -
+          kubectl create namespace cert-manager --dry-run=true -o yaml | kubectl apply -f -
+
+      - name: Install/Upgrade Deploy Ingress Nginx, Cert Manager
+        run: |
+          helm repo add ingress-nginx https://kubernetes.github.io/ingress-nginx
+          helm repo add jetstack https://charts.jetstack.io
+          helm repo update
+          helm upgrade --install ingress-nginx ingress-nginx/ingress-nginx
+          helm upgrade --install cert-manager jetstack/cert-manager --namespace cert-manager --version v1.2.0 --create-namespace --set installCRDs=true
+          sleep 120
+
+      - name: Deploy Ingress Service and Issuer To Cluster
+        env:
+          DOCKER_USERNAME: ${{ secrets.DOCKER_HUB_USERNAME }}
+        run: |
+          kubectl apply -f k8s --namespace="firstmate"

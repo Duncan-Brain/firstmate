@@ -1,0 +1,70 @@
+name: Deploy
+
+on:
+  workflow-call:
+    inputs:
+      REPO:
+        required: true
+        type: string
+      DEPLOY_SCRIPT_NAME:
+        required: true
+        type: string
+    secrets:
+      TOKEN_GITHUB:
+        required: true
+      DECRYPT_PASSPHRASE:
+        required: true
+      DOCKER_HUB_USERNAME:
+        required: true
+
+jobs:
+  deploy:
+    # GLOBAL ENV
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out private repo
+        uses: actions/checkout@v2
+
+      - name: Make external directory
+        run: mkdir external
+
+      # SPECIFY REPO
+      - name: Check out private repo
+        uses: actions/checkout@v2
+        with:
+          repository: ${{ inputs.REPO }}
+          token: ${{ secrets.TOKEN_GITHUB }}
+          path: external
+
+      - name: Get Private Repo Details
+        id: private-repo-sha
+        run: |
+          cd external
+          echo ::set-output name=PRIV_SHA::$(git rev-parse HEAD)
+          echo ::set-output name=PRIV_REPO_NAME::$(basename `git rev-parse --show-toplevel`)
+
+      - name: Download Kubectl
+        run: |
+          curl -LO https://dl.k8s.io/release/v1.20.0/bin/linux/amd64/kubectl
+          sudo install -o root -g root -m 0755 kubectl /usr/local/bin/kubectl
+
+      - name: Setup Kubeconfig
+        env:
+          PASSPHRASE: ${{ secrets.DECRYPT_PASSPHRASE }}
+        run: |
+          mkdir $HOME/.kube
+          gpg --quiet --batch --yes --decrypt --passphrase "$PASSPHRASE" --output $HOME/.kube/config github-actions-kubeconfig.gpg
+          chmod 600 $HOME/.kube/config
+          kubectl config set-context --current --user=github-actions
+
+      # AS NEEDED EDIT/ADD ENV AND DEPLOY SCRIPT
+      - name: Deploy App To Cluster
+        env:
+          DOCKER_USERNAME: ${{ secrets.DOCKER_HUB_USERNAME }}
+          PRIVATE_REPO_NAME: ${{ steps.private-repo-sha.outputs.PRIV_REPO_NAME }}
+          PRIVATE_SHA: ${{ steps.private-repo-sha.outputs.PRIV_SHA }}
+          DEPLOY_SCRIPT_NAME: ${{ inputs.DEPLOY_SCRIPT_NAME }}
+        run: |
+          cd external
+          chmod +x "$DEPLOY_SCRIPT_NAME"
+          ./"$DEPLOY_SCRIPT_NAME"

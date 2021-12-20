@@ -1,0 +1,36 @@
+name: Refresh ingress
+
+on:
+  workflow-call:
+    secrets:
+      DECRYPT_PASSPHRASE:
+        required: true
+      DOCKER_HUB_USERNAME:
+        required: true
+
+jobs:
+  refresh-ingress:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out private repo
+        uses: actions/checkout@v2
+
+      - name: Download kubectl
+        run: |
+          curl -LO https://dl.k8s.io/release/v1.20.0/bin/linux/amd64/kubectl
+          sudo install -o root -g root -m 0755 kubectl /usr/local/bin/kubectl
+
+      - name: Setup kubeconfig
+        env:
+          PASSPHRASE: ${{ secrets.DECRYPT_PASSPHRASE }}
+        run: |
+          mkdir $HOME/.kube
+          gpg --quiet --batch --yes --decrypt --passphrase "$PASSPHRASE" --output $HOME/.kube/config github-actions-kubeconfig.gpg
+          chmod 600 $HOME/.kube/config
+          kubectl config set-context --current --user=github-actions
+
+      - name: Refresh ingress and certificate
+        env:
+          DOCKER_USERNAME: ${{ secrets.DOCKER_HUB_USERNAME }}
+        run: |
+          kubectl apply -f k8s --namespace="firstmate"
