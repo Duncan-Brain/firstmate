@@ -1,3 +1,5 @@
+# sleep 120 causes Github resources to be used but prevents situation where cluster resources are not yet available
+ 
 name: Cluster Init
 
 on:
@@ -42,8 +44,9 @@ jobs:
           DOCKER_TOKEN: ${{ secrets.DOCKER_HUB_TOKEN }}
           DOCKER_EMAIL: ${{ secrets.DOCKER_HUB_EMAIL }}
         run: |
-          kubectl create secret docker-registry regcred --namespace="firstmate" --docker-server=https://index.docker.io/v2/ --docker-username="$DOCKER_USERNAME" --docker-password="$DOCKER_TOKEN" --docker-email="$DOCKER_EMAIL" --dry-run=true -o yaml | kubectl apply -f -
-          kubectl create namespace cert-manager --dry-run=true -o yaml | kubectl apply -f -
+          kubectl create namespace firstmate --dry-run=client -o yaml | kubectl apply -f -
+          kubectl create secret docker-registry regcred --namespace="firstmate" --docker-server=https://index.docker.io/v2/ --docker-username="$DOCKER_USERNAME" --docker-password="$DOCKER_TOKEN" --docker-email="$DOCKER_EMAIL" --dry-run=client -o yaml | kubectl apply -f -
+          kubectl create namespace cert-manager --dry-run=client -o yaml | kubectl apply -f -
 
       - name: Install/Upgrade Deploy Ingress Nginx, Cert Manager
         run: |

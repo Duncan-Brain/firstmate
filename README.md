@@ -1,9 +1,11 @@
 # <img src="/assets/logo-300px.png" width='75px'></img> Firstmate - v.0.1.0
 Firstmate is a boilerplate full-stack web controller that allows you to initialize and maintain a web-based project in a CI/CD style pipeline.
 
-Boilerplate projects are available to help you get started or adapt to your own containerized project. They have
+Boilerplate projects are available to help you get started or adapt to your own containerized project.
 
 Once setup, new websites, subdomains or other projects can be added easily to the controller. Be sure to choose the appropriate server resources your cluster will need to handle your projects.
+
+~ **Currently ~2 Hr Setup Time** ~
 
 ## Vision
 This project is for those maybe struggling to show off their projects because backend maintenance and a simple workflow for CI/CD is cumbersome. Firstmate can also be useful for hackathons or other temporary projects. <a href="/#updating-web-projects" style="color: blue; text-decoration: underline; text-decoration-style: dotted;font-size: small">A workflow diagram</a> of the after-setup workflow is shown in the *'Updating Web Projects'* section.
@@ -28,7 +30,7 @@ Some extra benefits of using Firstmate could include:
 | 7. [References](#references) |
 
 ## Boilerplate Projects
-The <a href="/#boilerplate-projects" style="color: blue; text-decoration: underline; text-decoration-style: dotted;font-size: small">firstmate-boilerplates</a> repo has a brief overview of each type of boilerplate and stores them as submodules for convenient viewing.
+The <a href="/#boilerplate-projects" style="color: blue; text-decoration: underline; text-decoration-style: dotted;font-size: small">firstmate-boilerplates</a> repo has a brief overview of each type of boilerplate and provides links to the individual repo for convenient viewing.
 
 For boilerplate type requests please make an issue or upvote an existing request on the firstmate-boilerplates repo.
 
@@ -46,7 +48,7 @@ For boilerplate subtype requests, please make an issue or upvote an existing req
 ## Instructions
 | Overview |
 | --- |
-| 1. [Setup](#setup) |
+| 1. [Getting ready](#getting-ready) |
 | >> [Web services](#web-services) |
 | >> [Command line tools](#command-line-tools) |
 | >> [API access tokens](#api-access-tokens) |
@@ -65,15 +67,20 @@ For boilerplate subtype requests, please make an issue or upvote an existing req
 | Helm | Microservices Package Manager |
 | LetsEncrypt | SSL Certication |
 
-### Setup
+### Getting Ready
 The following resources may be required to continue.
 
 #### Web Services
 ##### Git
-Clone Firstmate (this) directory locally. Choose a boilerplate project from the list above and clone that directory locally.
+i) Clone Firstmate (this) directory locally. Choose a boilerplate project from the list above and clone that directory locally.
+
+ii) Create a new repo where your boilerplate clone will live. Choose a lowercase name with '-' for spaces.
+<br/> (For example: 'my-project')
+
+iii) Create a new repo where your Firstmate clone will live. You can name it anything but my-project-controller or myproject-firstmate would be suggested.
 
 ##### Domain Name Service
-Any DNS should work. You will need to be able to create A records.
+Purchase a domain name. Any DNS should work. You will need to be able to create A records.
 
 ##### Docker Hub
 You will need to manually make a private image repository for each separate project you wish to have available as a unique domain. For our boilerplate check name as *'template-xxxx-image'* or *'dev-template-xxx-image'*.
@@ -120,8 +127,11 @@ Instructions: Navigate through your DockerHub profile *Account Settings* > *Secu
 ***
 
 ### Boilerplate Setup
+Complete the 'Getting Ready' section before this section.
+
 #### Step 1: Create a private project Github repo
-Create a private Github repository with a name of your choice. Preferable lowercase, and with '-' as spaces.
+Create a private Github repository with a name of your choice. Choose a lowercase name with '-' for spaces.
+<br/> (For example: 'my-project')
 
 #### Step 2: Add secrets to your private project repo
 i) Navigate through *your_project_repository* > *Settings* > *Secrets* from the menu
@@ -136,7 +146,9 @@ ii) Add repository secrets (same as Firstmate controller) with your values for t
 | DOCKER_HUB_TOKEN | `<docker-hub-api-token>` |
 
 #### Step 3: Edit the repo name in project files
-There are several mentions of 'template-xxxx' in the files and folders `k8s`, `dev-k8s`, `deploy.sh`, `dev-deploy.sh`, `.github/workflows` and also in the `firstmate-resources/k8s` and `firstmate-resources/.github/workflows`. Replace all instances including file names with the name you chose for your Github repo.
+i) There are several mentions of 'template-xxxx' in the files and folders `k8s`, `dev-k8s`, `deploy.sh`, `dev-deploy.sh`, `.github/workflows` and also in the `firstmate-resources/k8s` and `firstmate-resources/.github/workflows`. Replace all instances including file names with the name you chose for your Github repo.
+
+ii) In `.github/workflows` and `firstmate-resources/.github/workflows` replace all instances of 'my-github-name' with your Github base folder/username. And all instances of 'my-firstmate-repo' with the name you chose during the 'Getting Started' setup.
 
 #### Step 4: Replace dummy variables in Kubernetes Project Files and Firstmate Controller resources
 Two sets of Kubernetes resources are available in the template project. One with testing and deployment resources for dev.example.ca, the other for production without testing. One set is available in the Firstmate resources
@@ -164,6 +176,7 @@ ii) Create a branch called `dev` and the Github Actions workflow will attempt to
 ***
 
 ### Cluster Initialization
+Complete the Boilerplate Setup before starting this section.
 
 #### Step 1: Create a Kubernetes cluster on Digital Ocean
 ***Notice: Digital Ocean will begin to charge by the hour upon completion of this step***
@@ -242,8 +255,10 @@ iv) Look through the paginated tabs and select the secret similar to *github-act
 
 v) Under the *Data* heading there should be: *token* :eye: :pencil2: . Reveal the token using the eye.
 
-#### Step 5. Clone this Firstmate 'controller' git repo
-To a private Github repository of your own and locally.
+#### Step 5. Creat a Firstmate 'controller' git repo
+i) Create a private Github repository for your version of firstmate. You can name it anything but my-project-controller or myproject-firstmate would be suggested.
+
+ii) Create two branches and substitute your project's name: `update-my-project` and `update-dev-my-project`.
 
 #### Step 6. Move and rename the dummy templated kubeconfig file
 i) Copy the file `.DELETEME.github-actions-kubeconfig` to your `/.kube` folder
