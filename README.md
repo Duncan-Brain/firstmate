@@ -30,6 +30,8 @@ Some extra benefits of using Firstmate could include:
 | 7. [References](#references) |
 
 ## Boilerplate Projects
+See <a href="https://github.com/Duncan-Brain/firstmate-website-basic-next-react/blob/main/BOILERPLATES-README.md" style="color: blue; text-decoration: underline; text-decoration-style: dotted;font-size: small">Firstmate Boilerplates README</a>
+
 The <a href="/#boilerplate-projects" style="color: blue; text-decoration: underline; text-decoration-style: dotted;font-size: small">firstmate-boilerplates</a> repo has a brief overview of each type of boilerplate and provides links to the individual repo for convenient viewing.
 
 For boilerplate type requests please make an issue or upvote an existing request on the firstmate-boilerplates repo.
