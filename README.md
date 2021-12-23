@@ -36,7 +36,7 @@ For boilerplate type requests please make an issue or upvote an existing request
 For boilerplate specific framework requests, please make an issue or upvote an existing request on that specific repo.
 
 | Project Name  | Status | Variations | Min Cost |
-| --- | --- | --- | --- | --- |
+| --- | --- | --- | --- |
 | Basic Website | Pre-Production | 1 | $43.55 CAD |
 | API w Datastore | Concept | 0 | N/A |
 | Web App w Datastore | Concept | 0 | N/A |

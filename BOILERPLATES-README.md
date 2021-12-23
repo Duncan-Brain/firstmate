@@ -1,7 +1,7 @@
 # Firstmate Boilerplates
 
 | Project Name  | Status | Variations | Min Cost |
-| --- | --- | --- | --- | --- |
+| --- | --- | --- | --- |
 | [Basic Websites](#basic-websites) | Live | 1 | $43.55 CAD |
 | API w Datastore | Concept | 0 | N/A |
 | Web App w Datastore | Concept | 0 | N/A |
