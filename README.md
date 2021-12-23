@@ -10,7 +10,7 @@ Once setup, new websites, subdomains or other projects can be added easily to th
 ## Vision
 This project is for those maybe struggling to show off their projects because backend maintenance and a simple workflow for CI/CD is cumbersome. Firstmate can also be useful for hackathons or other temporary projects. <a href="/#updating-web-projects" style="color: blue; text-decoration: underline; text-decoration-style: dotted;font-size: small">A workflow diagram</a> of the after-setup workflow is shown in the *'Updating Web Projects'* section.
 
-The goal is to move towards a `.yaml` style setup file with options for alternate cloud providers, image stores etc. Differently similar to a Docker and Kubernetes workflow. Eventually look to have setup be less than 1 hour.
+The goal is to move towards a .yaml style setup file with options for alternate cloud providers, image stores etc. Differently similar to a Docker and Kubernetes workflow. Eventually look to have setup be less than 1 hour.
 
 While this workflow could be adapted to be completely automated on push to `master`. Some manual control is useful.
 
@@ -23,29 +23,26 @@ Some extra benefits of using Firstmate could include:
 | --- |
 | 1. [Boilerplate projects](#boilerplate-projects) |
 | 2. [Deployment instructions](#instructions) |
-| 3. [Custom deployment](#custom-deployment) |
-| 4. [Roadmap](#roadmap) |
-| 5. [Learning resources](#learning-resources) |
-| 6. [License](#license) |
-| 7. [References](#references) |
+| 3. [Roadmap](#roadmap) |
+| 4. [Learning resources](#learning-resources) |
+| 5. [License](#license) |
+| 6. [References](#references) |
 
 ## Boilerplate Projects
-See <a href="https://github.com/Duncan-Brain/firstmate-website-basic-next-react/blob/main/BOILERPLATES-README.md" style="color: blue; text-decoration: underline; text-decoration-style: dotted;font-size: small">Firstmate Boilerplates README</a>
+The <a href="https://github.com/Duncan-Brain/firstmate/blob/master/BOILERPLATES-README.md" style="color: blue; text-decoration: underline; text-decoration-style: dotted;font-size: small">Firstmate Boilerplates README</a> has a brief overview of each type of boilerplate and provides links to the individual repo for convenient viewing.
 
-The <a href="/#boilerplate-projects" style="color: blue; text-decoration: underline; text-decoration-style: dotted;font-size: small">firstmate-boilerplates</a> repo has a brief overview of each type of boilerplate and provides links to the individual repo for convenient viewing.
+For boilerplate type requests please make an issue or upvote an existing request here.
 
-For boilerplate type requests please make an issue or upvote an existing request on the firstmate-boilerplates repo.
+For boilerplate specific framework requests, please make an issue or upvote an existing request on that specific repo.
 
-For boilerplate subtype requests, please make an issue or upvote an existing request on that specific subtype repo.
-
-| Project Name | Repo | Status | Variations | Min Cost |
+| Project Name  | Status | Variations | Min Cost |
 | --- | --- | --- | --- | --- |
-| Basic Website | URL | Pre-Production | 1 | $43.55 CAD |
-| API w Datastore | URL | Concept | 0 | N/A |
-| Web App w Datastore | URL | Concept | 0 | N/A |
-| Private Data Science Pipeline | URL | Concept | 0 | N/A |
-| Private Git Store | URL | Concept | 0 | N/A |
-| Decentralized App w Node | URL | Concept | 0 | N/A |
+| Basic Website | Pre-Production | 1 | $43.55 CAD |
+| API w Datastore | Concept | 0 | N/A |
+| Web App w Datastore | Concept | 0 | N/A |
+| Private Data Science Pipeline | Concept | 0 | N/A |
+| Private Git Store | Concept | 0 | N/A |
+| Decentralized App w Node | Concept | 0 | N/A |
 
 ## Instructions
 | Overview |
@@ -57,7 +54,7 @@ For boilerplate subtype requests, please make an issue or upvote an existing req
 | 2. [Boilerplate setup](#boilerplate-setup) |
 | 3. [Firstmate controller initialization](#cluster-initialization) |
 | 4. [First deployment](#first-deployment) |
-| 5. [CI/CD Updating a project](#update-web-projects) |
+| 5. [CI/CD Updating a project](#updating-web-projects) |
 | 6. [Troubleshooting](#troubleshooting) |
 
 ### Primary Stack
@@ -415,7 +412,7 @@ My understanding of this would be (among other things):
 i) You can use this project to make a profit or start a business. But specifically when it comes to the code/software is that any upgrades you make you must share as open source code if you wish to sell the upgraded software.
 
 ii) I will try to make push good software but I make no claims about it's security, and am not responsible if something bad happens from you implementing this code.
+***
 
 ## References
 [^1]: Oracle - Step 4, Setting up a Service Account [https://docs.oracle.com/en-us/iaas/Content/ContEng/Tasks/contengaddingserviceaccttoken.htm](https://docs.oracle.com/en-us/iaas/Content/ContEng/Tasks/contengaddingserviceaccttoken.htm)
-***
